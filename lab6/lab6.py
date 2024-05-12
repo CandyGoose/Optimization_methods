@@ -51,16 +51,21 @@ def make_children(p1, p2):
             break
     c1 = make_child(p1, p2, splits)
     c2 = make_child(p2, p1, splits)
-    par1 = ''.join(map(str, p1[:splits[0]])) + '|' + ''.join(map(str, p1[splits[0]:splits[1]])) + '|' + ''.join(map(str, p1[splits[1]:]))
-    par2 = ''.join(map(str, p2[:splits[0]])) + '|' + ''.join(map(str, p2[splits[0]:splits[1]])) + '|' + ''.join(map(str, p2[splits[1]:]))
-    ch1 = ''.join(map(str, c1[:splits[0]])) + '|' + ''.join(map(str, c1[splits[0]:splits[1]])) + '|' + ''.join(map(str, c1[splits[1]:]))
-    ch2 = ''.join(map(str, c2[:splits[0]])) + '|' + ''.join(map(str, c2[splits[0]:splits[1]])) + '|' + ''.join(map(str, c2[splits[1]:]))
+    par1 = ''.join(map(lambda x: str(x + 1), p1[:splits[0]])) + '|' + ''.join(
+        map(lambda x: str(x + 1), p1[splits[0]:splits[1]])) + '|' + ''.join(map(lambda x: str(x + 1), p1[splits[1]:]))
+    par2 = ''.join(map(lambda x: str(x + 1), p2[:splits[0]])) + '|' + ''.join(
+        map(lambda x: str(x + 1), p2[splits[0]:splits[1]])) + '|' + ''.join(map(lambda x: str(x + 1), p2[splits[1]:]))
+    ch1 = ''.join(map(lambda x: str(x + 1), c1[:splits[0]])) + '|' + ''.join(
+        map(lambda x: str(x + 1), c1[splits[0]:splits[1]])) + '|' + ''.join(map(lambda x: str(x + 1), c1[splits[1]:]))
+    ch2 = ''.join(map(lambda x: str(x + 1), c2[:splits[0]])) + '|' + ''.join(
+        map(lambda x: str(x + 1), c2[splits[0]:splits[1]])) + '|' + ''.join(map(lambda x: str(x + 1), c2[splits[1]:]))
+
     for i in range(1, 3):
         print(f"{locals()[f'par{i}']}  | {locals()[f'ch{i}']} | {route_length(locals()[f'c{i}'], matrix)}")
     if mutate_child(c1):
-        print("Потомок 1 мутировал: " + ''.join(map(str, c1)))
+        print("Потомок 1 мутировал: " + ''.join(map(lambda x: str(x + 1), c1)))
     if mutate_child(c2):
-        print("Потомок 2 мутировал: " + ''.join(map(str, c2)))
+        print("Потомок 2 мутировал: " + ''.join(map(lambda x: str(x + 1), c2)))
     return c1, c2
 
 
@@ -81,16 +86,16 @@ def generation(c, matrix, p, g):
         if (i != 0 and i < g - 1):
             print("Код   | Значение целевой функции | Вероятность участия в размножении")
             for i, (code, length, prob) in enumerate(zip(population, lengths, probabilities), 1):
-                print(f"{''.join(map(str, code))} | {length}                       | {prob}")
+                print(f"{''.join(map(lambda x: str(x + 1), code))} | {length}                       | {prob}")
         else:
             print("Код   | Значение целевой функции")
             for i, (code, length) in enumerate(zip(population, lengths), 1):
-                print(f"{''.join(map(str, code))} | {length}")
+                print(f"{''.join(map(lambda x: str(x + 1), code))} | {length}")
         print()
 
         all_pairs = list(itertools.combinations(range(p), 2))
         pairs = random.sample(all_pairs, p // 2)
-        pairs_str = ", ".join([f"({pair[0]}, {pair[1]})" for pair in pairs])
+        pairs_str = ", ".join([f"({pair[0] + 1}, {pair[1] + 1})" for pair in pairs])
         print(f"Пусть выбраны пары: {pairs_str}")
         print("Родители | Потомки | Значение целевой функции для потомков")
         for j, pair in enumerate(pairs):
@@ -114,7 +119,7 @@ def generation(c, matrix, p, g):
     final_average = final_sum / len(lengths)
     print("Код   | Значение целевой функции")
     for i, (code, length) in enumerate(zip(population, lengths), 1):
-        print(f"{''.join(map(str, code))} | {length}")
+        print(f"{''.join(map(lambda x: str(x + 1), code))} | {length}")
     print()
     return population[0], route_length(population[0], matrix)
 
