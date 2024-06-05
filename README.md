@@ -1,5 +1,8 @@
 # Методы оптимизации
 ## Программная инженерия
+### Лекции
+[Материалы](https://github.com/CandyGoose/Optimization_methods/tree/main/materials)
+
 ### Лабораторные
 [Лабораторная 2](https://github.com/CandyGoose/Optimization_methods/tree/main/lab2)
 
